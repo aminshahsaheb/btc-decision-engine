@@ -32,3 +32,9 @@
 - Live fetch of 15m, 1h, 4h and derivatives passed validation.
 - Moved .pre_* backup files out of src/ and tests/ to the local 07_BACKUPS folder (not in Git).
 - Evidence: 03_TEST_EVIDENCE/integration/live_fetch_2026-11-11.md
+
+## 2026-11-11 - Independent assessments added
+- Added src/assessment.py: assess_data, assess_market, assess_direction (behavior copied from analyze(); analyze() not yet changed).
+- Added tests/test_assessment.py (16 tests).
+- Evidence: 03_TEST_EVIDENCE/unit/assessment_2026-11-11.txt
+- Not yet integrated into analyze() or app.py.
