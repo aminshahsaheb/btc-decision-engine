@@ -35,3 +35,13 @@ Status: ACTIVE
 Decision: Compare the current EWM implementation with an independent
 Wilder calculation before deciding whether to change it.
 Status: OPEN
+
+## D-009 — Funding evidence counted for both directions
+Observation: normal funding (e.g. 0.0001) satisfies both "< 0.0005" (bull) and "> -0.0005" (bear), so both sides get a free point.
+Decision: not decided. Copied unchanged into assess_direction. Evaluate by backtest before changing.
+Status: OPEN
+
+## D-010 — Order book imbalance weight
+Observation: a live snapshot showed imbalance 0.861; the 0.10 threshold is easy to trigger and a single snapshot is not stable evidence.
+Decision: not decided. Copied unchanged. Consider showing it as supporting evidence only.
+Status: OPEN

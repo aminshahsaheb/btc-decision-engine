@@ -38,3 +38,10 @@
 - Added tests/test_assessment.py (16 tests).
 - Evidence: 03_TEST_EVIDENCE/unit/assessment_2026-11-11.txt
 - Not yet integrated into analyze() or app.py.
+
+## 2026-11-11 - Trade planning extracted
+- Added src/planning.py: entry_trigger and plan_trade (behavior copied from analyze(); analyze() unchanged).
+- plan_trade rejects invalid input, wrong-side stop, wide stop and low net R:R; quantity is always marked executable=False.
+- Added tests/test_planning.py (12 tests) with hand-computed values.
+- Logged D-009 and D-010 as OPEN.
+- Evidence: 03_TEST_EVIDENCE/unit/planning_2026-11-11.txt
