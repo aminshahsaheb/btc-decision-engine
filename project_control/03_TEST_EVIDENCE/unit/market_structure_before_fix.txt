@@ -1,0 +1,40 @@
+.......F.FF                                                              [100%]
+=================================== FAILURES ===================================
+__________________ test_structure_accepts_exact_minimum_rows ___________________
+
+    def test_structure_accepts_exact_minimum_rows():
+        df = make_structure_df(21, last_close=111.0)
+>       assert market_structure(df, lookback=20) == "BULLISH BOS"
+E       AssertionError: assert 'UNKNOWN' == 'BULLISH BOS'
+E         
+E         - BULLISH BOS
+E         + UNKNOWN
+
+tests/test_engine.py:72: AssertionError
+___________________ test_structure_detects_bearish_breakout ____________________
+
+    def test_structure_detects_bearish_breakout():
+        df = make_structure_df(21, last_close=89.0)
+>       assert market_structure(df, lookback=20) == "BEARISH BOS"
+E       AssertionError: assert 'UNKNOWN' == 'BEARISH BOS'
+E         
+E         - BEARISH BOS
+E         + UNKNOWN
+
+tests/test_engine.py:82: AssertionError
+______________________ test_structure_detects_no_breakout ______________________
+
+    def test_structure_detects_no_breakout():
+        df = make_structure_df(21, last_close=100.0)
+>       assert market_structure(df, lookback=20) == "RANGE / NO BOS"
+E       AssertionError: assert 'UNKNOWN' == 'RANGE / NO BOS'
+E         
+E         - RANGE / NO BOS
+E         + UNKNOWN
+
+tests/test_engine.py:87: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_engine.py::test_structure_accepts_exact_minimum_rows - Asse...
+FAILED tests/test_engine.py::test_structure_detects_bearish_breakout - Assert...
+FAILED tests/test_engine.py::test_structure_detects_no_breakout - AssertionEr...
+3 failed, 8 passed in 0.55s
