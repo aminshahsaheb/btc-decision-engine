@@ -58,3 +58,20 @@ Duplicate control: an identical input fingerprint is not stored twice.
 Not done: trade outcomes table (must stay separate from decisions), exchange contract filters.
 Note: analyze() in engine.py is no longer used by app.py; it is kept for now and may be removed later.
 Status: ACTIVE
+
+## D-009 update — 2026-11-11
+Live run confirmed it: the same funding value appears in both the bullish and the bearish evidence lists, so both sides get a free point. Still not changed. Status: OPEN
+
+## D-010 update — 2026-11-11
+Order book imbalance was +0.861 in the earlier live fetch and -0.351 in the app run (hours apart). Consistent with an unstable single-snapshot measure; not proof. Status: OPEN
+
+## D-013 — Journal granularity
+Observation: every button click created a new record (4 in under a minute) because the order book snapshot changes the fingerprint.
+Proposal: one analysis per closed 15m candle, labeled manual or scheduled, so forward evaluation is not distorted.
+Status: OPEN
+
+## D-014 — Limits of backtesting
+- Funding and order book imbalance have no historical snapshots, so the full decide() cannot be backtested honestly.
+- The 5m 2021-2026 dataset is burned for new directional hypotheses under the btc-signal-lab research rules, and the v0.3 rules are EMA/RSI based.
+- Therefore a historical backtest is only a sanity check. The forward journal (paper trading with a separate outcomes table) is the primary evidence source.
+Status: OPEN

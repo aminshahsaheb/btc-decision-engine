@@ -59,3 +59,8 @@
 - Added tests/test_journal.py and tests/test_app.py (headless app run with mocked data).
 - Evidence: 03_TEST_EVIDENCE/integration/journal_app_2026-11-11.txt
 - Limits: app tested with synthetic data only; outcomes table and contract filters not implemented.
+
+## 2026-11-11 - First live app run
+- app.py with decide() ran against live data; 91 tests passed (commit 47b3ffe).
+- Observations and open decisions D-009 to D-014 recorded.
+- Evidence: 03_TEST_EVIDENCE/integration/live_app_run_2026-11-11.md
