@@ -45,3 +45,9 @@ Status: OPEN
 Observation: a live snapshot showed imbalance 0.861; the 0.10 threshold is easy to trigger and a single snapshot is not stable evidence.
 Decision: not decided. Copied unchanged. Consider showing it as supporting evidence only.
 Status: OPEN
+
+## D-011 — Labels in decide() differ from the old analyze()
+Change: when a direction exists but no valid entry/plan exists, the label is "<BULLISH|BEARISH> BIAS — NO VALID ENTRY".
+Old analyze(): wide stop -> WAIT; low net R:R -> NO TRADE.
+Reason: ARCHITECTURE_SPEC section 3.5 requires bias to be separate from entry.
+Status: ACTIVE (analyze() and app.py not yet switched to decide()).

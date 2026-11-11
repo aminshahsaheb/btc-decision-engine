@@ -45,3 +45,10 @@
 - Added tests/test_planning.py (12 tests) with hand-computed values.
 - Logged D-009 and D-010 as OPEN.
 - Evidence: 03_TEST_EVIDENCE/unit/planning_2026-11-11.txt
+
+## 2026-11-11 - decide() added
+- Added src/decision.py: combines assess_data, assess_market, assess_direction, entry_trigger and plan_trade into four independent assessments.
+- Fails closed: invalid/stale data, non-finite indicators and unexpected errors give NO TRADE; executable is always False.
+- Added tests/test_decision.py (11 tests).
+- analyze() and app.py unchanged.
+- Evidence: 03_TEST_EVIDENCE/unit/decision_2026-11-11.txt
