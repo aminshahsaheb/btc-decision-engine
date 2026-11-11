@@ -95,3 +95,10 @@ Status: ACTIVE
 - The Mac must stay awake and online for the loop to record every candle.
 - A handful of resolved trades proves nothing; no conclusion about an edge before a large sample.
 Status: OPEN
+
+## D-017 — Read-only live panel and position calculator
+- panel.py shows decide() output and refreshes every 60 s. It never writes to the journal.
+- A failed fetch shows an error and no decision (fail closed).
+- src/risk_calc.position_size is an estimate for a manually chosen entry and stop. It never claims to be executable: contract filters and liquidation are not modelled.
+- The panel is a checklist and risk guard; the engine has no evidence of profitability.
+Status: ACTIVE

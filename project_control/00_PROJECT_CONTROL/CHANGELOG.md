@@ -71,3 +71,8 @@
 - app.py stores manual analyses with candle_time.
 - Evidence: 03_TEST_EVIDENCE/integration/forward_tracking_2026-11-11.txt
 - Not yet run over time; no results exist.
+
+## 2026-11-11 - Live panel added
+- Added panel.py (read-only, 60 s refresh, port 8502) and src/risk_calc.py (position size estimate).
+- Added tests/test_risk_calc.py and tests/test_panel.py.
+- Evidence: 03_TEST_EVIDENCE/integration/panel_2026-11-11.txt
