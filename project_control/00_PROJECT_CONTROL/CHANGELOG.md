@@ -52,3 +52,10 @@
 - Added tests/test_decision.py (11 tests).
 - analyze() and app.py unchanged.
 - Evidence: 03_TEST_EVIDENCE/unit/decision_2026-11-11.txt
+
+## 2026-11-11 - New journal and app connected to decide()
+- Rewrote src/journal.py (new DB file, fingerprint, duplicate control).
+- Rewrote app.py to use decide(); four assessments and reasons are shown; width=stretch replaces use_container_width.
+- Added tests/test_journal.py and tests/test_app.py (headless app run with mocked data).
+- Evidence: 03_TEST_EVIDENCE/integration/journal_app_2026-11-11.txt
+- Limits: app tested with synthetic data only; outcomes table and contract filters not implemented.

@@ -51,3 +51,10 @@ Change: when a direction exists but no valid entry/plan exists, the label is "<B
 Old analyze(): wide stop -> WAIT; low net R:R -> NO TRADE.
 Reason: ARCHITECTURE_SPEC section 3.5 requires bias to be separate from entry.
 Status: ACTIVE (analyze() and app.py not yet switched to decide()).
+
+## D-012 — app.py switched to decide(); new journal
+Change: app.py now calls decide() and shows the four assessments and reasons. The journal is a new file (decision_journal_v3.sqlite3) with analysis id, UTC time, engine version, config, four statuses, input fingerprint and full payload.
+Duplicate control: an identical input fingerprint is not stored twice.
+Not done: trade outcomes table (must stay separate from decisions), exchange contract filters.
+Note: analyze() in engine.py is no longer used by app.py; it is kept for now and may be removed later.
+Status: ACTIVE
