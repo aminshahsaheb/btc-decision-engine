@@ -46,7 +46,10 @@ if run or "result_v3" not in st.session_state:
                 "max_atr_pct": max_atr,
             }
             result = decide(market, deriv, cfg)
-            saved = save_analysis(result, cfg, input_fingerprint(market, deriv, cfg))
+            saved = save_analysis(
+                result, cfg, input_fingerprint(market, deriv, cfg),
+                candle_time=str(market["15m"]["time"].iloc[-1]), source="manual",
+            )
             st.session_state.market_v3 = market
             st.session_state.deriv_v3 = deriv
             st.session_state.result_v3 = result

@@ -64,3 +64,10 @@
 - app.py with decide() ran against live data; 91 tests passed (commit 47b3ffe).
 - Observations and open decisions D-009 to D-014 recorded.
 - Evidence: 03_TEST_EVIDENCE/integration/live_app_run_2026-11-11.md
+
+## 2026-11-11 - Forward tracking added
+- Journal now has source and candle_time; scheduled analyses are stored once per closed 15m candle.
+- New outcomes table, src/outcomes.py (resolve_outcome, evaluate_pending, outcome_summary), src/scheduler.py, src/config.py, scripts/forward.py (run, loop, report).
+- app.py stores manual analyses with candle_time.
+- Evidence: 03_TEST_EVIDENCE/integration/forward_tracking_2026-11-11.txt
+- Not yet run over time; no results exist.

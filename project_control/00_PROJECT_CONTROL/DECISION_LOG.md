@@ -75,3 +75,23 @@ Status: OPEN
 - The 5m 2021-2026 dataset is burned for new directional hypotheses under the btc-signal-lab research rules, and the v0.3 rules are EMA/RSI based.
 - Therefore a historical backtest is only a sanity check. The forward journal (paper trading with a separate outcomes table) is the primary evidence source.
 Status: OPEN
+
+## D-013 update — 2026-11-11
+Implemented: scheduled analyses store one record per closed 15m candle (source "scheduled"). Clicks in the app are stored as "manual" and are never counted in forward evaluation.
+Status: IMPLEMENTED (not yet run over time)
+
+## D-015 — Paper trade outcome rules
+- Entry is assumed at the plan entry (close of the signal candle). No fill uncertainty is modelled.
+- Only closed 15m candles after the signal candle are used.
+- If one candle touches both stop and target 2, the stop is assumed to have been hit first.
+- Target 1 is ignored; the trade ends at stop, target 2, or after 96 candles (EXPIRED, exit at that candle's close).
+- r_net subtracts the estimated fees and slippage (cost_estimate) from the result, in units of risk.
+- Missing or non-contiguous candle history gives UNEVALUABLE (stored, never silently dropped).
+- Only scheduled records are evaluated.
+Status: ACTIVE
+
+## D-016 — Known gaps of forward tracking
+- A failed fetch or validation stores nothing, so gaps in the journal are possible (only printed by the loop).
+- The Mac must stay awake and online for the loop to record every candle.
+- A handful of resolved trades proves nothing; no conclusion about an edge before a large sample.
+Status: OPEN
