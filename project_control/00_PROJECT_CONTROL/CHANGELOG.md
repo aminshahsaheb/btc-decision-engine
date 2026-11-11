@@ -27,3 +27,8 @@
 ## 2026-11-11 — Full-suite verification
 - Full current test suite passed: 40 tests.
 - Output saved in `03_TEST_EVIDENCE/integration/full_suite_2026-11-11.txt`.
+
+## 2026-11-11 - Live data check and cleanup
+- Live fetch of 15m, 1h, 4h and derivatives passed validation.
+- Moved .pre_* backup files out of src/ and tests/ to the local 07_BACKUPS folder (not in Git).
+- Evidence: 03_TEST_EVIDENCE/integration/live_fetch_2026-11-11.md
