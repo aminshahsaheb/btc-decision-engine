@@ -1,0 +1,23 @@
+name: alert-plumbing-test
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check which data sources are reachable from the runner
+        run: |
+          for u in "https://fapi.binance.com/fapi/v1/ping" "https://data-api.binance.vision/api/v3/ping" "https://api.bybit.com/v5/market/time" "https://www.okx.com/api/v5/public/time" "https://api.exchange.coinbase.com/time" "https://api.kraken.com/0/public/Time"; do
+            code=$(curl -sS -m 15 -o /dev/null -w "%{http_code}" "$u" || echo FAIL)
+            echo "$code  $u"
+          done
+      - name: Send a Telegram test message
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          test -n "$TOKEN" && test -n "$CHAT" || { echo "secrets missing"; exit 1; }
+          curl -sS -m 20 --fail "https://api.telegram.org/bot${TOKEN}/sendMessage" --data-urlencode "chat_id=${CHAT}" --data-urlencode "text=Test from GitHub Actions: plumbing works. This is NOT a trading signal." -o /dev/null && echo "telegram: sent"
