@@ -102,3 +102,7 @@ Status: OPEN
 - src/risk_calc.position_size is an estimate for a manually chosen entry and stop. It never claims to be executable: contract filters and liquidation are not modelled.
 - The panel is a checklist and risk guard; the engine has no evidence of profitability.
 Status: ACTIVE
+
+## D-018 — Product one-pager: levels 1 and 2 only
+Decision: docs/PRODUCT_ONE_PAGE.md states that the tool is at level 1 (risk control) and level 2 (attention alerts) and makes no level 3 (proven signal) claim. The 20-day-break alert is the same rule as a hypothesis that failed its historical test; it is a prompt to look, not an entry signal.
+Status: PROPOSED until the owner merges the pull request
