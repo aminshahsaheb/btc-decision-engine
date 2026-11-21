@@ -11,7 +11,7 @@ A decision-support tool for the owner's own MANUAL BTC trades on KCEX. It is not
 | Level | Meaning | Status |
 |---|---|---|
 | 1. Risk control | Position-size estimate, a stop fixed before entry, NO TRADE when data is invalid or stale | ACTIVE. Deterministic arithmetic checked by synthetic tests written by the same author (not independent evidence). The size is an estimate, not an executable order quantity: exchange contract filters and liquidation are not modelled. |
-| 2. Attention alerts | Telegram messages when something worth a look happens | ACTIVE and UNPROVEN. Rules are frozen in docs/ALERT_RULES_v1.md. An hourly schedule is configured; the first scheduled run is not yet confirmed. |
+| 2. Attention alerts | Telegram messages when something worth a look happens | ACTIVE and UNPROVEN. Rules are frozen in docs/ALERT_RULES_v1.md. Scheduled runs exist since 2026-11-17 (an hourly cron is configured), but GitHub's scheduler ran about 3 times per day in the first 3.5 days instead of hourly, and one of 11 runs failed. Events between runs can be missed. |
 | 3. Proven signal | A rule whose forward evidence passes the evidence gate | NOT CLAIMED. No rule has passed. |
 
 Earlier historical tests of 8 hypotheses (10 test lines: multi-timeframe alignment, derivatives-based rules, 20-day breakout) did not pass on development data. Their records are in the owner's local research log, not in this repository. They give no support for a signal claim.
@@ -46,7 +46,7 @@ A candle-less "market state engine"; a level-2 order-book or raw-trade collector
 Through docs/GATE_v1.md (not written yet). Until it is frozen, nothing here counts as proven. Alerts of this type are infrequent, so a statistical conclusion can take years; INCONCLUSIVE is a valid outcome.
 
 ## 9. Known limits
-- The alert scheduler is best effort; delays of minutes are normal.
+- The alert scheduler is best effort. It was observed running about 3 times per day instead of hourly, so events between runs can be missed.
 - The direction logic of the v0.3 baseline is a set of simple closed-candle EMA, RSI, ADX and ATR checks: a baseline to beat, not an edge.
 - Open decisions D-008, D-009 and D-010 (see DECISION_LOG.md).
 - Data feeds can fail; on failure the tool must show an error and no decision.
