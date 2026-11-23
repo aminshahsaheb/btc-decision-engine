@@ -106,3 +106,7 @@ Status: ACTIVE
 ## D-018 — Product one-pager: levels 1 and 2 only
 Decision: docs/PRODUCT_ONE_PAGE.md states that the tool is at level 1 (risk control) and level 2 (attention alerts) and makes no level 3 (proven signal) claim. The 20-day-break alert is the same rule as a hypothesis that failed its historical test; it is a prompt to look, not an entry signal.
 Status: PROPOSED until the owner merges the pull request
+
+## D-019 — Alert logging: write-ahead state machine and rules v2
+Decision: the alert script saves and pushes PENDING before the Telegram call, then SENT or UNCERTAIN; a timeout is UNCERTAIN and is never resent; the job is red on UNCERTAIN; v2 scans 24 closed 1h bars; alerts older than 12 h are logged as STALE and not sent; one shared concurrency group serialises every writer of alert-log. Rules: docs/ALERT_RULES_v2.md. Alert B stays an UNPROVEN side alert. Evidence counting restarts at the first v2 row.
+Status: PROPOSED until the owner merges the pull request
