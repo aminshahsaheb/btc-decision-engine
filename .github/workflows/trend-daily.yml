@@ -1,0 +1,72 @@
+name: trend-daily
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "15 0 * * *"   # enable only after the owner has checked a manual run
+permissions:
+  contents: read
+jobs:
+  compute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install numpy (the version pinned in requirements-lock.txt)
+        run: |
+          set -e
+          PIN=$(grep -i '^numpy==' requirements-lock.txt | head -n 1)
+          test -n "$PIN"
+          python3 -m pip install --quiet "$PIN"
+      - name: Read the public log (no credentials)
+        run: |
+          git fetch --depth=1 origin alert-log:refs/remotes/origin/alert-log || true
+          git show origin/alert-log:trend_daily.csv > prev_trend_daily.csv 2>/dev/null || : > prev_trend_daily.csv
+      - name: Verify the pinned file and compute the state
+        run: |
+          echo "e5e17e3de5d8ed36b33712726cfe81256a0ee7ec8ad66cf87f2885fd3fc2bc6f  vendor/trend-setup/trendsetup.py" | sha256sum -c -
+          python3 scripts/trend_state.py --log-csv prev_trend_daily.csv --out trend_state.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: trend-state
+          path: trend_state.json
+          retention-days: 7
+          if-no-files-found: error
+  notify:
+    needs: compute
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    concurrency:
+      group: alert-log-writer
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: trend-state
+      - name: Prepare the log branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -e
+          git config --global user.name "alert-bot"
+          git config --global user.email "alert-bot@users.noreply.github.com"
+          URL="https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git"
+          if git ls-remote --exit-code --heads "$URL" alert-log >/dev/null 2>&1; then
+            git clone -q --branch alert-log "$URL" log
+          else
+            mkdir log
+            git -C log init -q -b alert-log
+            git -C log remote add origin "$URL"
+          fi
+      - name: Log first, then notify
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 scripts/trend_notify.py --state trend_state.json --log-dir log

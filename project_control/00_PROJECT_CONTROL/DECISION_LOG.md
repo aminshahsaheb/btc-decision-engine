@@ -110,3 +110,7 @@ Status: PROPOSED until the owner merges the pull request
 ## D-019 — Alert logging: write-ahead state machine and rules v2
 Decision: the alert script saves and pushes PENDING before the Telegram call, then SENT or UNCERTAIN; a timeout is UNCERTAIN and is never resent; the job is red on UNCERTAIN; v2 scans 24 closed 1h bars; alerts older than 12 h are logged as STALE and not sent; one shared concurrency group serialises every writer of alert-log. Rules: docs/ALERT_RULES_v2.md. Alert B stays an UNPROVEN side alert. Evidence counting restarts at the first v2 row.
 Status: PROPOSED until the owner merges the pull request
+
+## D-020 — Daily trend alert (vendored lab rule, paper record)
+Decision: add a daily long-or-flat attention alert for 7 coins using the lab file vendor/trend-setup/trendsetup.py (unedited, sha256 pinned, commit 5daf49a). Two steps: compute without secrets, then validate, log write-ahead and send. Data errors never become signals. The schedule stays commented out until the owner has checked a manual run. Labelled UNPROVEN; paper record since 2026-11-22. Lab tests and golden vectors are not vendored yet.
+Status: PROPOSED until the owner merges the pull request
