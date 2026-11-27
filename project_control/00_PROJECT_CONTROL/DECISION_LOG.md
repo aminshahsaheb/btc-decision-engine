@@ -114,3 +114,7 @@ Status: PROPOSED until the owner merges the pull request
 ## D-020 — Daily trend alert (vendored lab rule, paper record)
 Decision: add a daily long-or-flat attention alert for 7 coins using the lab file vendor/trend-setup/trendsetup.py (unedited, sha256 pinned, commit 5daf49a). Two steps: compute without secrets, then validate, log write-ahead and send. Data errors never become signals. The schedule stays commented out until the owner has checked a manual run. Labelled UNPROVEN; paper record since 2026-11-22. Lab tests and golden vectors are not vendored yet.
 Status: PROPOSED until the owner merges the pull request
+
+## D-021 — Daily trend alert: schedule enabled (00:15 UTC)
+Decision: after a manual run succeeded and the logged rows matched the lab path on real data for 3 dates (all signals were zero, so the non-zero path and the Telegram path are still untested on real data), the schedule of trend-daily.yml is enabled. A late or cancelled run is recovered by the next one. Still UNPROVEN; paper record since 2026-11-22.
+Status: PROPOSED until the owner merges the pull request
