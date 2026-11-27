@@ -1,8 +1,8 @@
 name: trend-daily
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: "15 0 * * *"   # enable only after the owner has checked a manual run
+  schedule:
+    - cron: "15 0 * * *"
 permissions:
   contents: read
 jobs:
